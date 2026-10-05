@@ -48,13 +48,13 @@ for i, (fname, title) in enumerate(CHAPTERS, 1):
 
 content_opf = f'''<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="bookid" xml:lang="en">
-<head><meta charset="utf-8"/>
-<identifier id="bookid">urn:uuid:6f1e2a3b-7c4d-4e5f-9a8b-0c1d2e3f4a5b</identifier>
-<meta name="dcterms:modified" content="2026-10-05T00:00:00Z"/>
-<title>A Field Guide to Your Inner Life</title>
-<creator>Jinming Shen</creator>
-<language>en</language>
-</head>
+<metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+<dc:identifier id="bookid">urn:uuid:6f1e2a3b-7c4d-4e5f-9a8b-0c1d2e3f4a5b</dc:identifier>
+<dc:title>A Field Guide to Your Inner Life</dc:title>
+<dc:creator>Jinming Shen</dc:creator>
+<dc:language>en</dc:language>
+<meta property="dcterms:modified">2026-10-05T00:00:00Z</meta>
+</metadata>
 <manifest>
 <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
 <item id="css" href="style.css" media-type="text/css"/>
