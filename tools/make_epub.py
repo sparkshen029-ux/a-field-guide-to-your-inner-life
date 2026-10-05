@@ -7,6 +7,7 @@ from markdown import markdown
 R = Path(r'D:\SPARK\zcode\朱教授\指南\inner-life-guide-repo')
 G = R / 'guide'
 OUT = R / "A-Field-Guide-to-Your-Inner-Life.epub"
+COVER = (R / "images" / "cover.jpg").read_bytes()
 
 CHAPTERS = [
     ('00-introduction.md', 'Introduction'),
@@ -53,14 +54,17 @@ content_opf = f'''<?xml version="1.0" encoding="utf-8"?>
 <dc:title>A Field Guide to Your Inner Life</dc:title>
 <dc:creator>Jinming Shen</dc:creator>
 <dc:language>en</dc:language>
+<meta name="cover" content="cover-image"/>
 <meta property="dcterms:modified">2026-10-05T00:00:00Z</meta>
 </metadata>
 <manifest>
 <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/>
 <item id="css" href="style.css" media-type="text/css"/>
+<item id="cover-image" href="cover.jpg" media-type="image/jpeg" properties="cover-image"/>
+<item id="cover-page" href="cover.xhtml" media-type="application/xhtml+xml"/>
 {''.join(manifest)}
 </manifest>
-<spine>{''.join(spine)}</spine>
+<spine><itemref idref="cover-page"/>{''.join(spine)}</spine>
 </package>'''
 
 nav = f'''<?xml version="1.0" encoding="utf-8"?>
@@ -68,6 +72,12 @@ nav = f'''<?xml version="1.0" encoding="utf-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
 <head><meta charset="utf-8"/><title>Contents</title></head>
 <body><nav epub:type="toc" id="toc"><h1>Contents</h1><ol>{''.join(nav_lis)}</ol></nav></body></html>'''
+
+cover_xhtml = '''<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta charset="utf-8"/><title>Cover</title><style>body{margin:0;padding:0;text-align:center}img{max-width:100%;height:auto}</style></head>
+<body><img src="cover.jpg" alt="A Field Guide to Your Inner Life — cover"/></body></html>'''
 
 container = '''<?xml version="1.0" encoding="utf-8"?>
 <container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">
@@ -80,6 +90,8 @@ with zipfile.ZipFile(OUT, 'w') as z:
     z.writestr('META-INF/container.xml', container)
     z.writestr('OEBPS/content.opf', content_opf)
     z.writestr('OEBPS/nav.xhtml', nav)
+    z.writestr('OEBPS/cover.jpg', COVER)
+    z.writestr('OEBPS/cover.xhtml', cover_xhtml)
     z.writestr('OEBPS/style.css', CSS.replace('%%','%'))
     for i, (fname, _) in enumerate(CHAPTERS, 1):
         z.writestr(f'OEBPS/ch{i}.xhtml', (R / '_epub' / f'ch{i}.xhtml').read_text(encoding='utf-8'))
