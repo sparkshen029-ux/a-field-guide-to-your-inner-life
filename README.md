@@ -6,6 +6,10 @@
 
 **by Jinming Shen**
 
+<img src="images/cover.jpg" alt="Book cover: a lane at dusk, a wooden door left ajar with warm light, a house at the end of the path" width="300"/>
+
+<br/>
+
 [![Entries](https://img.shields.io/badge/entries-39-18794e?style=flat-square)](#contents)
 [![Honesty](https://img.shields.io/badge/every_entry-honesty_note-915930?style=flat-square)](#how-to-read-it)
 [![License](https://img.shields.io/badge/license-CC%20BY%204.0-565a5f?style=flat-square)](LICENSE)
